@@ -1,0 +1,911 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+
+<div class="csb-tt" id="csb-tt-top">
+<style>
+.csb-tt *,.csb-tt *::before,.csb-tt *::after{box-sizing:border-box}
+.csb-tt{
+  --red:#D0021B;--navy:#1C2B3A;--sand:#FDF8F0;
+  --border:#E8E0D0;--muted:#5a6270;--wash:rgba(208,2,27,0.05);
+  font-family:"Source Serif 4",Georgia,serif;font-size:19px;line-height:1.75;
+  color:var(--navy);background:#fff;max-width:860px;margin:0 auto;
+}
+
+/* NAV */
+.tt-nav{
+  background:var(--navy);padding:0 20px;display:flex;align-items:center;
+  gap:6px;overflow-x:auto;scrollbar-width:none;
+  position:fixed;top:0;left:0;right:0;z-index:90;height:46px;
+  border-bottom:2px solid var(--red);
+}
+.tt-nav::-webkit-scrollbar{display:none}
+.tt-nav .nav-brand{
+  font-family:system-ui,sans-serif;font-size:.72em;font-weight:700;
+  color:var(--red);text-decoration:none;white-space:nowrap;
+  padding-right:14px;margin-right:4px;border-right:1px solid rgba(255,255,255,0.15);
+}
+.tt-nav a:not(.nav-brand){
+  font-family:system-ui,sans-serif;font-size:.68em;font-weight:600;
+  color:rgba(255,255,255,0.85) !important;text-decoration:none;
+  padding:4px 9px;border-radius:4px;white-space:nowrap;transition:background .15s;
+}
+.tt-nav a:hover:not(.nav-brand){background:rgba(255,255,255,0.1)}
+.tt-nav a.tt-active{background:var(--red) !important;color:#fff !important}
+
+/* BODY */
+.tt-body{padding:54px 24px 48px;background:#fff}
+
+/* TYPE */
+.csb-tt h1{
+  font-family:"Source Serif 4",Georgia,serif;font-size:1.95em;font-weight:700;
+  line-height:1.18;color:var(--navy);margin:28px 0 18px;
+  padding-left:16px;border-left:5px solid var(--red);
+}
+.csb-tt h2{
+  font-family:"Source Serif 4",Georgia,serif;font-size:1.28em;font-weight:700;
+  color:var(--navy);margin:1.8em 0 .55em;
+  padding-left:13px;border-left:3px solid var(--red);
+}
+.csb-tt h3{
+  font-family:system-ui,sans-serif;font-size:.97em;font-weight:700;
+  color:var(--navy);margin:1.5em 0 .2em;display:flex;align-items:center;gap:9px;
+}
+.csb-tt p{margin:0 0 1em}
+.csb-tt strong{font-weight:700}
+.csb-tt a{color:var(--red);text-decoration:underline}
+
+/* SELECTOR */
+.tt-selector{margin:24px 0 0}
+.tt-selector-label{
+  font-family:system-ui,sans-serif;font-size:1em;font-weight:800;
+  color:var(--navy);text-align:center;text-transform:uppercase;
+  letter-spacing:.12em;margin:0 0 14px;
+  display:flex;align-items:center;gap:10px;justify-content:center;
+}
+.tt-selector-label::before,.tt-selector-label::after{
+  content:'';flex:1;height:2px;background:var(--border);
+}
+.tt-selector-buttons{display:flex;flex-direction:column;gap:14px}
+.sel-btn{
+  display:flex;align-items:center;gap:20px;
+  background:var(--navy);border:3px solid var(--red);
+  border-radius:12px;
+  padding:26px 24px;cursor:pointer;text-align:left;
+  transition:background .15s,transform .12s,box-shadow .12s;width:100%;
+  box-shadow:0 2px 8px rgba(208,2,27,0.15);
+}
+.sel-btn:hover{background:#0f1e2c;transform:translateY(-2px);box-shadow:0 6px 20px rgba(208,2,27,0.3)}
+.sel-btn .sb-flag{font-size:3.2em;line-height:1;flex-shrink:0}
+.sel-btn .sb-country{
+  font-family:system-ui,sans-serif;font-size:1.4em;font-weight:800;
+  color:#fff;display:block;margin-bottom:6px;
+}
+
+.sel-btn .sb-action{
+  font-family:system-ui,sans-serif;font-size:1em;font-weight:700;
+  color:#fff;letter-spacing:.02em;
+  margin-top:6px;display:block;opacity:.9;
+}
+.sel-btn .sb-arrow{font-size:2em;color:#fff;flex-shrink:0;font-weight:700}
+
+/* SWITCH BAR */
+.switch-bar{
+  font-family:system-ui,sans-serif;font-size:.8em;
+  background:var(--sand);border:1px solid var(--border);
+  border-radius:8px;padding:10px 16px;margin:0 0 1.6em;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.switch-bar span{color:var(--muted)}
+.switch-bar button{
+  background:none;border:1px solid var(--border);border-radius:4px;
+  font-family:system-ui,sans-serif;font-size:.88em;font-weight:600;
+  color:var(--navy);padding:3px 10px;cursor:pointer;transition:all .15s;
+}
+.switch-bar button:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.switch-bar button.sw-active{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* COUNTRY BANNER */
+.country-banner{
+  background:var(--navy);border-radius:10px;padding:16px 20px;
+  margin:0 0 1.4em;display:flex;align-items:center;gap:12px;
+  border-left:5px solid var(--red);
+}
+.country-banner .cb-flag{font-size:1.5em;line-height:1}
+.country-banner .cb-name{font-family:system-ui,sans-serif;font-size:1em;font-weight:700;color:#fff}
+.country-banner .cb-tag{
+  font-family:system-ui,sans-serif;font-size:.68em;font-weight:600;
+  color:var(--red);margin-left:auto;text-transform:uppercase;letter-spacing:.04em;
+}
+
+/* FINDINGS */
+.findings-list{
+  margin:0 0 1.8em;padding-left:0;list-style:none;
+  display:flex;flex-direction:column;gap:8px;
+}
+.findings-list li{
+  background:var(--sand);border:1px solid var(--border);
+  border-left:3px solid var(--red);border-radius:0 8px 8px 0;
+  padding:10px 14px;font-family:system-ui,sans-serif;font-size:.83em;
+  color:var(--navy);line-height:1.55;
+}
+.findings-list li strong{color:var(--navy)}
+
+/* RANK BADGE */
+.rank-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;font-family:system-ui,sans-serif;
+  font-size:.78em;font-weight:700;flex-shrink:0;
+  background:var(--sand);color:var(--navy);border:1px solid var(--border);
+}
+.rank-badge.r1{background:var(--red);color:#fff;border-color:var(--red)}
+
+.entry-details{
+  font-style:italic;font-size:.83em;color:var(--muted);
+  margin:0 0 .7em;font-family:system-ui,sans-serif;
+}
+.entry-divider{border:none;border-top:1px solid var(--border);margin:1.4em 0}
+
+/* RISK TIER PILL - main badge */
+.risk-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:system-ui,sans-serif;font-size:.72em;font-weight:700;
+  border-radius:20px;padding:4px 12px;color:#fff;
+  letter-spacing:.02em;
+}
+.risk-lower,.risk-low{color:#6b1010}
+.risk-extreme{background:#D0021B}
+.risk-veryhigh{background:#e03030}
+.risk-high{background:#e85858}
+.risk-moderate{background:#ee7c7c}
+.risk-lower{background:#f4a0a0}
+.risk-low{background:#f8bfbf}
+
+/* DATA PILLS */
+.data-pills{display:flex;flex-wrap:wrap;gap:7px;margin:.6em 0 1em}
+.pill{
+  font-family:system-ui,sans-serif;font-size:.7em;font-weight:600;
+  background:var(--sand);border:1px solid var(--border);
+  border-radius:20px;padding:3px 10px;color:var(--navy);
+}
+
+/* CALLOUT TABLE */
+.callout-table{
+  width:100%;border-collapse:collapse;margin:1em 0 1.2em;
+  font-family:system-ui,sans-serif;font-size:.78em;
+}
+.callout-table th{
+  background:var(--navy);color:#fff;font-weight:700;
+  padding:8px 12px;text-align:left;
+}
+.callout-table td{
+  padding:7px 12px;border-bottom:1px solid var(--border);color:var(--navy);
+  vertical-align:middle;
+}
+.callout-table tr:nth-child(even) td{background:var(--sand)}
+.callout-table td .risk-pill{font-size:.85em;padding:2px 8px}
+
+/* EXPERT */
+.expert-block{
+  border:1px solid var(--border);border-left:4px solid var(--red);
+  border-radius:0 8px 8px 0;background:var(--sand);
+  padding:18px 22px;margin:1.6em 0;
+}
+.expert-block blockquote{margin:0;padding:0}
+.expert-block p{
+  font-size:.93em;color:var(--navy);margin:0 0 .9em;line-height:1.65;
+}
+.expert-block p:last-of-type{margin-bottom:0}
+.expert-attribution{
+  font-family:system-ui,sans-serif;font-size:.7em;color:var(--muted);
+  margin-top:11px;display:block;border-top:1px solid var(--border);padding-top:9px;
+}
+
+/* EMBED */
+.embed-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:1.3em 0}
+.embed-wrap iframe{display:block;width:100%;border:none}
+
+/* INTERNAL LINKS */
+.internal-links{
+  font-family:system-ui,sans-serif;font-size:.84em;
+  background:var(--sand);border:1px solid var(--border);
+  border-left:3px solid var(--red);border-radius:0 8px 8px 0;
+  padding:10px 14px;margin:1.2em 0;color:var(--muted);line-height:1.6;
+}
+.internal-links a{color:var(--red)}
+
+/* METHODOLOGY */
+.methodology-block{
+  font-family:system-ui,sans-serif;font-size:.8em;background:var(--sand);
+  border:1px solid var(--border);border-radius:8px;padding:17px 19px;
+  color:var(--muted);line-height:1.65;
+}
+.methodology-block strong{color:var(--navy);font-weight:700}
+.methodology-block p{margin:0 0 .85em}
+.methodology-block p:last-child{margin:0}
+
+/* SOURCES */
+.sources-list{
+  font-family:system-ui,sans-serif;font-size:.8em;padding-left:16px;
+  color:var(--muted);line-height:2;
+}
+.sources-list a{color:var(--red)}
+
+.final-line{
+  font-style:italic;font-size:1em;color:var(--muted);
+  text-align:center;margin:1.4em 0 .5em;
+}
+
+/* SEO FIELDS hidden block at bottom */
+.seo-block{display:none}
+
+.country-section{display:none}
+.country-section.active{display:block}
+
+@media(max-width:600px){
+  .csb-tt{font-size:16px}
+  .tt-body{padding:54px 14px 32px}
+  .csb-tt h1{font-size:1.5em}
+  .csb-tt h2{font-size:1.12em}
+  .sel-btn{padding:18px 16px}
+  .callout-table{font-size:.72em}
+  .data-pills{gap:5px}
+}
+</style>
+
+<!-- NAV -->
+<nav class="tt-nav" id="tt-nav">
+  <a href="#csb-tt-top" class="nav-brand">Tourist Takeover 2026</a>
+  <a href="#tt-findings" id="nav-findings" style="display:none">Findings</a>
+  <a href="#tt-top10" id="nav-top10" style="display:none">Top 10</a>
+  <a href="#tt-callout" id="nav-callout" style="display:none">Spotlight</a>
+  <a href="#tt-method" id="nav-method" style="display:none">Methodology</a>
+</nav>
+
+<div class="tt-body">
+
+<!-- SHARED INTRO -->
+<div id="tt-intro">
+<h1>What Are the Odds Your City Gets Overrun by Tourists This Summer?</h1>
+
+<p>Every summer, tourists flood Canada and the US in the millions. Some destinations handle it. Others get taken over.</p>
+
+<p>At Canada Sports Betting, we price odds for a living. We ranked 75 destinations by how likely they are to be overwhelmed this June, July, and August.</p>
+
+
+</div>
+
+<!-- SELECTOR -->
+<div class="tt-selector" id="tt-selector">
+  <div class="tt-selector-label">Choose your country</div>
+  <div class="tt-selector-buttons">
+    <button class="sel-btn" onclick="showCountry('canada')">
+      <span class="sb-flag">&#127464;&#127462;</span>
+      <span class="sb-text">
+        <span class="sb-country">Canada</span>
+        <span class="sb-action">Tap to see the Canada rankings &#8594;</span>
+      </span>
+      <span class="sb-arrow">&#8594;</span>
+    </button>
+    <button class="sel-btn" onclick="showCountry('us')">
+      <span class="sb-flag">&#127482;&#127480;</span>
+      <span class="sb-text">
+        <span class="sb-country">United States</span>
+        <span class="sb-action">Tap to see the US rankings &#8594;</span>
+      </span>
+      <span class="sb-arrow">&#8594;</span>
+    </button>
+  </div>
+</div>
+
+
+<!-- ==================== CANADA ==================== -->
+<div class="country-section" id="section-canada">
+
+<div class="switch-bar">
+  <span>Switch:</span>
+  <button onclick="showCountry('canada')" class="sw-active">&#127464;&#127462; Canada</button>
+  <button onclick="showCountry('us')">&#127482;&#127480; United States</button>
+  <button onclick="showSelector()" style="margin-left:auto;color:var(--muted)">&#8592; Back</button>
+</div>
+
+<div class="country-banner">
+  <span class="cb-flag">&#127464;&#127462;</span>
+  <span class="cb-name">Canada</span>
+  <span class="cb-tag">25 destinations ranked</span>
+</div>
+
+<h2>Is Your Canadian City About to Be Taken Over?</h2>
+
+<p>If you live in Banff, Tofino, or Cavendish, you already know what summer feels like. The tourists arrive, the locals disappear, and your city stops feeling like yours.</p>
+
+<p>At Canada Sports Betting, we price odds for a living. So we asked: <strong>what are the odds your Canadian city gets overrun by tourists this summer?</strong></p>
+
+<p>We scored 25 Canadian destinations across four measures:</p>
+<ul style="font-family:system-ui,sans-serif;font-size:.85em;color:#1C2B3A;margin:0 0 1em 1.2em;line-height:2;list-style:disc">
+  <li><strong>Peak ratio:</strong> tourists per resident in June, July, August</li>
+  <li><strong>Growth:</strong> year-on-year change in visitor numbers</li>
+  <li><strong>Search demand:</strong> forward booking signals for summer 2026</li>
+  <li><strong>Rental density:</strong> Airbnb listings per 1,000 residents</li>
+</ul>
+<p>Each score converts to an implied overcrowding probability, the same way a betting line converts to an implied win percentage.</p>
+
+<h2 id="tt-findings">Key Findings</h2>
+<ul class="findings-list">
+  <li><strong>Banff sees 275 tourists for every resident in peak summer.</strong> 4.23 million visitors, 8,000 locals.</li>
+  <li><strong>Cavendish, PEI hits the same ratio: 275:1.</strong> A beach hamlet of 700 people with no visitor cap of any kind.</li>
+  <li><strong>4 of Canada's top 10 sit inside a single Alberta mountain corridor:</strong> Banff, the Rockies, Canmore, and Jasper.</li>
+  <li><strong>Tofino has STR restrictions, documented protests, and still draws 110 tourists per resident.</strong></li>
+  <li><strong>Whistler introduced a visitor tax in 2024. Demand didn't slow. It still ranks 5th.</strong></li>
+  <li><strong>Jasper lost 44% of visitors to a 2024 wildfire and still ranks 10th.</strong> Its structural ratio is 140:1.</li>
+</ul>
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/chart-canada.html" height="680" title="Most overtouristed destinations in Canada 2026"></iframe>
+</div>
+
+<h2 id="tt-top10">The 10 Most Overtouristed Destinations in Canada This Summer</h2>
+
+<!-- #1 BANFF -->
+<h3><span class="rank-badge r1">1</span> Banff, Alberta</h3>
+<p class="entry-details">Alberta &nbsp;·&nbsp; Mountain / National Park &nbsp;·&nbsp; Score: 100</p>
+<p>4.23 million visitors. 8,000 residents. In peak summer that produces <strong>275 tourists for every local</strong>, the joint-highest ratio in the country. Parks Canada introduced a visitor levy and the Moraine Lake reservation system. Neither has slowed demand.</p>
+<p>Banff ties Cavendish on peak ratio but leads the composite score on higher growth and stronger search momentum. No other destination in Canada scores higher.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-extreme">Extreme Risk &nbsp;·&nbsp; 75%+ chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">275:1 peak ratio</span>
+  <span class="pill">4.23M annual visitors</span>
+  <span class="pill">Visitor tax in place</span>
+  <span class="pill">Timed entry at Moraine Lake</span>
+</div>
+<hr class="entry-divider">
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/pic1.html" height="410" title="Banff National Park, Alberta"></iframe>
+</div>
+
+<!-- #2 CAVENDISH -->
+<h3><span class="rank-badge">2</span> Cavendish / Prince Edward Island</h3>
+<p class="entry-details">Prince Edward Island &nbsp;·&nbsp; Beach / Heritage &nbsp;·&nbsp; Score: 95.3</p>
+<p>A beach hamlet of <strong>700 permanent residents</strong> drawing 350,000 annual visitors, with 55% arriving in summer. That concentrates 193,000 peak-season visitors against fewer than 1,000 people. That is a ratio of 275:1, identical to Banff.</p>
+<p>No visitor tax. No entry cap. No formal management framework. Cavendish is the most structurally exposed community in this dataset.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-extreme">Extreme Risk &nbsp;·&nbsp; 75%+ chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">275:1 peak ratio</span>
+  <span class="pill">700 permanent residents</span>
+  <span class="pill">No visitor cap</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #3 TOFINO -->
+<h3><span class="rank-badge">3</span> Tofino, British Columbia</h3>
+<p class="entry-details">British Columbia &nbsp;·&nbsp; Coastal / Nature &nbsp;·&nbsp; Score: 70.1</p>
+<p>2,500 residents. 500,000 annual visitors. 55% arriving in summer. That is <strong>110 tourists for every local</strong> in peak season, despite STR restrictions and documented overtourism protests already on record.</p>
+<p>4.2% year-on-year growth and strong forward search demand kept Tofino firmly in High Risk territory. The restrictions have not reduced the underlying pull.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-high">High Risk &nbsp;·&nbsp; 50% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">110:1 peak ratio</span>
+  <span class="pill">+4.2% YoY growth</span>
+  <span class="pill">STR restrictions in place</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #4 CANADIAN ROCKIES -->
+<h3><span class="rank-badge">4</span> Canadian Rockies (AB/BC)</h3>
+<p class="entry-details">Alberta / British Columbia &nbsp;·&nbsp; Mountain / National Park &nbsp;·&nbsp; Score: 65.5</p>
+<p>5.48 million visitors across a resident population of 20,000. Peak ratio: <strong>143:1</strong>. Moraine Lake requires a reservation. Parks Canada caps vehicle entry at multiple trailheads. This entry captures the broader mountain corridor beyond Banff's town boundaries.</p>
+<p>At 4.2% annual growth across a constrained alpine geography, the region sits at High Risk for summer 2026.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-high">High Risk &nbsp;·&nbsp; 50% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">143:1 peak ratio</span>
+  <span class="pill">5.48M annual visitors</span>
+  <span class="pill">Timed entry in place</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #5 WHISTLER -->
+<h3><span class="rank-badge">5</span> Whistler, British Columbia</h3>
+<p class="entry-details">British Columbia &nbsp;·&nbsp; Mountain / Resort &nbsp;·&nbsp; Score: 59.9</p>
+<p>3.5 million visitors. 14,000 residents. 45% arriving in summer. That is <strong>112 tourists per resident</strong> at peak. Whistler introduced a visitor tax in 2024. It has not reversed demand. Growth continues at 3.2% year-on-year.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-moderate">Moderate Risk &nbsp;·&nbsp; 33% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">112:1 peak ratio</span>
+  <span class="pill">3.5M annual visitors</span>
+  <span class="pill">Visitor tax in place</span>
+</div>
+<hr class="entry-divider">
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/pic2.html" height="410" title="Tofino, British Columbia"></iframe>
+</div>
+
+<!-- #6 CANMORE -->
+<h3><span class="rank-badge">6</span> Canmore, Alberta</h3>
+<p class="entry-details">Alberta &nbsp;·&nbsp; Mountain &nbsp;·&nbsp; Score: 46</p>
+<p>Banff's primary overflow gateway. 17,000 residents. 2.2 million annual visitors. <strong>62:1 peak ratio</strong>. STR restrictions are in place and resident protests are documented. Neither has slowed the fastest growth rate in the Canadian top 10: up 5.8% year-on-year.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">62:1 peak ratio</span>
+  <span class="pill">+5.8% YoY, fastest in top 10</span>
+  <span class="pill">STR restrictions</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #7 NIAGARA FALLS -->
+<h3><span class="rank-badge">7</span> Niagara Falls, Ontario</h3>
+<p class="entry-details">Ontario &nbsp;·&nbsp; Heritage / Falls &nbsp;·&nbsp; Score: 42.2</p>
+<p>Canada's most visited heritage attraction: 13 million annual visitors to a city of 92,000. In summer, 4.55 million arrive. That is <strong>50 tourists per resident</strong>. No visitor cap is in place.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">50:1 peak ratio</span>
+  <span class="pill">13M annual visitors</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #8 MUSKOKA -->
+<h3><span class="rank-badge">8</span> Muskoka / Cottage Country, Ontario</h3>
+<p class="entry-details">Ontario &nbsp;·&nbsp; Cottage / Lake &nbsp;·&nbsp; Score: 30.7</p>
+<p>62% of Muskoka's annual visits land in June, July, and August, the highest summer concentration factor of any destination in this study. That delivers 1.98 million visitors against 65,000 year-round residents. That is <strong>30 tourists per resident</strong> at peak.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">30:1 peak ratio</span>
+  <span class="pill">62% summer concentration</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #9 LAURENTIANS -->
+<h3><span class="rank-badge">9</span> Quebec Laurentians / Mont-Tremblant, Quebec</h3>
+<p class="entry-details">Quebec &nbsp;·&nbsp; Mountain / Resort &nbsp;·&nbsp; Score: 26.7</p>
+<p>7.34 million annual visitors. 200,000 regional residents. 45% concentrated in summer, producing <strong>3.3 million peak visitors</strong> against a region of 200,000. A visitor tax was introduced in 2024. Growth sits at 3.8% year-on-year.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-low">Low Risk &nbsp;·&nbsp; Under 10% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">16:1 peak ratio</span>
+  <span class="pill">7.34M annual visitors</span>
+  <span class="pill">Visitor tax in place</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #10 JASPER -->
+<h3><span class="rank-badge">10</span> Jasper, Alberta</h3>
+<p class="entry-details">Alberta &nbsp;·&nbsp; Mountain / National Park &nbsp;·&nbsp; Score: 25.7</p>
+<p>Jasper lost 43.6% of its visitors after a wildfire in July 2024. Parks Canada still recorded 1.4 million visits against a town of 5,200. Peak summer ratio: <strong>140:1</strong>. Tenth in Canada despite a catastrophic drop in absolute numbers.</p>
+<p>Recovery is underway for 2026. When visitor numbers rebound to pre-fire levels, Jasper moves up this table fast.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-low">Low Risk &nbsp;·&nbsp; Under 10% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">140:1 peak ratio</span>
+  <span class="pill">-43.6% YoY (wildfire)</span>
+  <span class="pill">Recovery expected 2026</span>
+</div>
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/pic3.html" height="410" title="Canmore, Alberta"></iframe>
+</div>
+
+
+<h2 id="tt-callout">One Province, Four Danger Zones</h2>
+
+<p>Alberta holds four of Canada's ten most overtouristed destinations. Banff, the Canadian Rockies, Canmore, and Jasper all sit within the same mountain corridor, all sharing a single primary highway. At peak summer, the combined visitor volume is structurally incompatible with the infrastructure available.</p>
+
+<table class="callout-table">
+  <thead>
+    <tr><th>Destination</th><th>Score</th><th>Peak Ratio</th><th>Risk Tier</th><th>Cap</th><th>Protests</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Banff</td><td>100</td><td>275:1</td>
+      <td><span class="risk-pill risk-extreme">Extreme</span></td>
+      <td>Yes</td><td>Yes</td>
+    </tr>
+    <tr>
+      <td>Canadian Rockies</td><td>65.5</td><td>143:1</td>
+      <td><span class="risk-pill risk-high">High</span></td>
+      <td>Yes</td><td>Yes</td>
+    </tr>
+    <tr>
+      <td>Canmore</td><td>46</td><td>62:1</td>
+      <td><span class="risk-pill risk-lower">Lower</span></td>
+      <td>STR limits</td><td>Yes</td>
+    </tr>
+    <tr>
+      <td>Jasper</td><td>25.7</td><td>140:1</td>
+      <td><span class="risk-pill risk-low">Low</span></td>
+      <td>No</td><td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Canmore enacted STR restrictions and still grew 5.8%. Jasper lost nearly half its visitors to a wildfire and still cracks the national top 10 on structural ratio alone. Both outcomes point to the same conclusion: demand in this corridor runs ahead of every management tool applied to it.</p>
+
+<h2>Expert Comment</h2>
+<div class="expert-block">
+  <blockquote>
+    <p>"Across Canada, tourists are outnumbering locals by staggering margins every summer: 275-to-1 in Banff and Cavendish, 110-to-1 in Tofino, 112-to-1 in Whistler. These communities aren't just busy. They're structurally overwhelmed. And in most cases, the management tools in place haven't slowed demand at all."</p>
+  </blockquote>
+  <span class="expert-attribution">Data Analyst, Canada Sports Betting</span>
+</div>
+
+<h2>The Numbers Point North</h2>
+
+<p>Two destinations tied for Canada's highest peak ratio. One has a levy, a reservation system, and years of management infrastructure. The other is a beach hamlet of 700 people on Prince Edward Island with none of those tools in place. Both are at Extreme Risk this summer.</p>
+
+<p>For travellers heading to any destination in the top five, the data is a straightforward signal: the most popular places are popular for a reason, and they are full. The best Canadian summer experiences in 2026 will be found at or below rank six.</p>
+
+<p>Visitor taxes are spreading. Timed entry is spreading. The destinations without either are the next pressure points. Cavendish leads that list by a significant margin.</p>
+
+<p class="final-line"><em>In Canada this summer, the most visited places are also the most overwhelmed.</em></p>
+<h2 id="tt-method">Methodology</h2>
+<div class="methodology-block">
+  <p><strong>What we measured:</strong> The probability that a destination will be noticeably overcrowded for the average visitor during peak summer 2026 (June, July, August).</p>
+  <p><strong>Four pillars:</strong> Peak tourist-to-resident ratio (40%) · YoY arrival growth (25%) · Forward search demand (20%) · Short-term rental density (15%). Each pillar z-scored, capped at ±3, weighted, and normalised to a 0–100 index.</p>
+  <p><strong>Summer concentration factors:</strong> Beach/coastal 55% · National park gateways 52% · Mountain resorts 45–48% · Urban destinations 28% · Derived from published seasonality data where available; destination-type estimates otherwise.</p>
+  <p><strong>Risk tiers:</strong> Score 90–100 = Extreme Risk (75%+) · 80–89 = Very High Risk (60%) · 65–79 = High Risk (50%) · 50–64 = Moderate Risk (33%) · 30–49 = Lower Risk (17%) · Below 30 = Low Risk (under 10%).</p>
+  <p><strong>Limitations:</strong> Summer visitor figures are derived estimates, not confirmed peak-season counts. Jasper reflects 2024 wildfire impact. Data extracted June 2026.</p>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources-list">
+  <li>Full dataset: <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTvxnMAigXDfZYA6TJpUKA3DqOOI8N6b86f0vBTKENYy0flaZ9VXKnfuq77Gs5QCA/pubhtml" target="_blank" rel="noopener">Canada Sports Betting Tourist Takeover Index 2026</a></li>
+  <li>Statistics Canada National Tourism Survey 2024</li>
+  <li>Parks Canada attendance data 2024/25</li>
+  <li>Destination Canada · Provincial DMOs 2024</li>
+  <li>Statistics Canada Population Estimates 2024</li>
+  <li>Inside Airbnb quarterly city data</li>
+  <li>Google Trends: forward search demand, summer 2026 vs 2025</li>
+</ul>
+
+</div><!-- end canada -->
+
+
+<!-- ==================== UNITED STATES ==================== -->
+<div class="country-section" id="section-us">
+
+<div class="switch-bar">
+  <span>Switch:</span>
+  <button onclick="showCountry('canada')">&#127464;&#127462; Canada</button>
+  <button onclick="showCountry('us')" class="sw-active">&#127482;&#127480; United States</button>
+  <button onclick="showSelector()" style="margin-left:auto;color:var(--muted)">&#8592; Back</button>
+</div>
+
+<div class="country-banner">
+  <span class="cb-flag">&#127482;&#127480;</span>
+  <span class="cb-name">United States</span>
+  <span class="cb-tag">50 destinations ranked</span>
+</div>
+
+<h2>Is Your City About to Be Taken Over?</h2>
+
+<p>If you live in Gatlinburg or Jackson Hole, summer is not a season. It is an invasion. Visitors outnumber locals by hundreds to one. Parking disappears. Restaurants queue out the door. The town you live in becomes a place you can barely move through.</p>
+
+<p>At Canada Sports Betting, we price odds for a living. So we asked: <strong>what are the odds your US city gets overrun by tourists this summer?</strong></p>
+
+<p>We scored 50 US destinations across four measures:</p>
+<ul style="font-family:system-ui,sans-serif;font-size:.85em;color:#1C2B3A;margin:0 0 1em 1.2em;line-height:2;list-style:disc">
+  <li><strong>Peak ratio:</strong> tourists per resident in June, July, August</li>
+  <li><strong>Growth:</strong> year-on-year change in visitor numbers</li>
+  <li><strong>Search demand:</strong> forward booking signals for summer 2026</li>
+  <li><strong>Rental density:</strong> Airbnb listings per 1,000 residents</li>
+</ul>
+<p>Each score converts to an implied overcrowding probability, the same way a betting line converts to an implied win percentage.</p>
+
+<h2 id="tt-findings">Key Findings</h2>
+<ul class="findings-list">
+  <li><strong>Yellowstone's gateway town sees 1,944 tourists per resident in peak summer.</strong> 1,300 locals, 2.5 million summer visitors.</li>
+  <li><strong>The top 2 are both national park gateway towns with under 5,000 residents:</strong> Yellowstone gateway at 1,944:1, Gatlinburg at 1,510:1.</li>
+  <li><strong>76% of Leavenworth's homes are Airbnb listings,</strong> the highest short-term rental saturation in the entire study.</li>
+  <li><strong>Asheville and Austin are the fastest-growing destinations in the top 10:</strong> 5.6% and 5.8% year-on-year, neither with a visitor management plan.</li>
+  <li><strong>5 of the top 10 are mountain or national park gateway destinations.</strong> Constrained geography, no overflow valve.</li>
+  <li><strong>85% of Jackson Hole residents say tourism is growing too fast.</strong> They enacted a management plan and still rank 10th.</li>
+</ul>
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/chart-us.html" height="680" title="Most overtouristed destinations in the US 2026"></iframe>
+</div>
+
+<h2 id="tt-top10">The 10 Most Overtouristed Destinations in the US This Summer</h2>
+
+<!-- #1 YELLOWSTONE -->
+<h3><span class="rank-badge r1">1</span> Yellowstone Gateway, Montana</h3>
+<p class="entry-details">Montana &nbsp;·&nbsp; National Park Gateway &nbsp;·&nbsp; Score: 100</p>
+<p>1,300 permanent residents. 4.86 million annual visitors to Yellowstone, 52% arriving in summer. In peak season: <strong>1,944 tourists for every local</strong>. Timed-entry permits manage access inside the park. They do not reduce the concentration of visitors staging in the gateway town itself.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-extreme">Extreme Risk &nbsp;·&nbsp; 75%+ chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">1,944:1 peak ratio</span>
+  <span class="pill">4.86M annual visitors</span>
+  <span class="pill">Timed entry in place</span>
+  <span class="pill">66.7% STR penetration</span>
+</div>
+<hr class="entry-divider">
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/pic4.html" height="410" title="Yellowstone National Park"></iframe>
+</div>
+
+<!-- #2 GATLINBURG -->
+<h3><span class="rank-badge">2</span> Gatlinburg, Tennessee</h3>
+<p class="entry-details">Tennessee &nbsp;·&nbsp; National Park Gateway &nbsp;·&nbsp; Score: 80.4</p>
+<p>4,200 residents. 12.2 million visitors to Great Smoky Mountains, the most visited national park in the US. 52% arrive in summer: <strong>1,510 tourists per resident</strong> at peak. Airbnb listings exceed the total housing stock at 107.7% STR penetration.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-veryhigh">Very High Risk &nbsp;·&nbsp; 60% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">1,510:1 peak ratio</span>
+  <span class="pill">12.2M annual visitors</span>
+  <span class="pill">107.7% STR penetration</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #3 LEAVENWORTH -->
+<h3><span class="rank-badge">3</span> Leavenworth, Washington</h3>
+<p class="entry-details">Washington &nbsp;·&nbsp; Heritage &nbsp;·&nbsp; Score: 56.7</p>
+<p>A Bavarian-themed village of 2,300 residents in the Cascades. 3 million annual visitors, 38% in summer: <strong>496 tourists per resident</strong> at peak. 76.2% of housing is listed on short-term rental platforms, the highest STR rate in this study.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-moderate">Moderate Risk &nbsp;·&nbsp; 33% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">496:1 peak ratio</span>
+  <span class="pill">76.2% STR penetration, highest in study</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #4 ASHEVILLE -->
+<h3><span class="rank-badge">4</span> Asheville, North Carolina</h3>
+<p class="entry-details">North Carolina &nbsp;·&nbsp; Mountain &nbsp;·&nbsp; Score: 44.5</p>
+<p>The fastest-growing major tourism destination in the US top 10 at <strong>+5.6% year-on-year</strong>. 4.2 million annual visitors to a city of 94,000. 2.016 million arrive in summer. Infrastructure strain is documented. Resident protests are on record.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">21:1 peak ratio</span>
+  <span class="pill">+5.6% YoY growth</span>
+  <span class="pill">Resident protests documented</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #5 ST AUGUSTINE -->
+<h3><span class="rank-badge">5</span> St Augustine, Florida</h3>
+<p class="entry-details">Florida &nbsp;·&nbsp; Heritage &nbsp;·&nbsp; Score: 42.7</p>
+<p>The oldest European-settled city in the US: 15,000 residents, 7 million annual visitors. 38% arrive in summer, producing <strong>177 tourists per resident</strong> in a constrained historic core with no visitor management system in place.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">177:1 peak ratio</span>
+  <span class="pill">7M annual visitors</span>
+  <span class="pill">No visitor cap</span>
+</div>
+<hr class="entry-divider">
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/pic5.html" height="410" title="Blue Ridge Mountains, North Carolina"></iframe>
+</div>
+
+<!-- #6 PROVINCETOWN -->
+<h3><span class="rank-badge">6</span> Provincetown, Massachusetts</h3>
+<p class="entry-details">Massachusetts &nbsp;·&nbsp; Coastal &nbsp;·&nbsp; Score: 42.4</p>
+<p>3,300 residents at the tip of Cape Cod. 1.2 million annual visitors. 55% arrive in summer. That delivers <strong>200 tourists per resident</strong> through a peninsula with one road in.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">200:1 peak ratio</span>
+  <span class="pill">55% summer concentration</span>
+  <span class="pill">One road in</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #7 PARK CITY -->
+<h3><span class="rank-badge">7</span> Park City, Utah</h3>
+<p class="entry-details">Utah &nbsp;·&nbsp; Mountain &nbsp;·&nbsp; Score: 41.8</p>
+<p>8,400 residents. 3.5 million annual visitors, 48% in summer: <strong>200 tourists per resident</strong> at peak. 32.3% of housing is on short-term rental platforms. Resident sentiment surveys show concern. A traffic management plan is in place.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">200:1 peak ratio</span>
+  <span class="pill">32.3% STR penetration</span>
+  <span class="pill">Resident concern documented</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #8 ORLANDO -->
+<h3><span class="rank-badge">8</span> Orlando, Florida</h3>
+<p class="entry-details">Florida &nbsp;·&nbsp; Theme Park &nbsp;·&nbsp; Score: 41.5</p>
+<p>No destination in this study comes close to Orlando's absolute volume: <strong>75.3 million annual visitors</strong> to a city of 320,000. At 38% summer concentration that is 28.6 million peak visitors: 89 tourists per resident. The ratio understates the pressure inside the theme park corridor itself.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">89:1 peak ratio</span>
+  <span class="pill">75.3M annual visitors, highest in study</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #9 AUSTIN -->
+<h3><span class="rank-badge">9</span> Austin, Texas</h3>
+<p class="entry-details">Texas &nbsp;·&nbsp; City &nbsp;·&nbsp; Score: 40.6</p>
+<p>40.2 million out-of-market visitors in 2024, growing at <strong>+5.8% year-on-year</strong>, the fastest growth rate in the US top 10. 11.26 million arrive in summer. At 5.8% compounding on a 40-million base, Austin's ratio changes meaningfully within three years.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">12:1 peak ratio</span>
+  <span class="pill">+5.8% YoY, fastest in top 10</span>
+  <span class="pill">Resident concerns documented</span>
+</div>
+<hr class="entry-divider">
+
+<!-- #10 JACKSON HOLE -->
+<h3><span class="rank-badge">10</span> Jackson Hole, Wyoming</h3>
+<p class="entry-details">Wyoming &nbsp;·&nbsp; Mountain &nbsp;·&nbsp; Score: 39.3</p>
+<p>10,559 residents. 4.2 million annual visitors, 48% in summer: <strong>191 tourists per resident</strong> at peak. A resident survey found <strong>85% believe tourism is growing too fast</strong>. Jackson Hole has responded with a Sustainable Destination Management Plan. It is the most self-aware destination in this dataset.</p>
+<div class="data-pills">
+  <span class="risk-pill risk-lower">Lower Risk &nbsp;·&nbsp; 17% chance of overcrowding</span>
+</div>
+<div class="data-pills">
+  <span class="pill">191:1 peak ratio</span>
+  <span class="pill">85% resident concern rate</span>
+  <span class="pill">Management plan enacted</span>
+  <span class="pill">28% STR penetration</span>
+</div>
+
+<div class="embed-wrap">
+  <iframe src="https://aharris-jpg.github.io/tourist-takeover/pic6.html" height="410" title="Jackson Hole, Wyoming"></iframe>
+</div>
+
+
+<h2 id="tt-callout">The Destinations Fighting Back</h2>
+
+<p>Six of the US top 10 have formal visitor management, documented resident protests, or both. Destinations with constrained geography and national park adjacency reach a tipping point faster. The data shows which ones have already crossed it.</p>
+
+<table class="callout-table">
+  <thead>
+    <tr><th>Destination</th><th>Peak Ratio</th><th>Risk Tier</th><th>Cap / Entry</th><th>Protests</th><th>STR %</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Yellowstone gateway</td><td>1,944:1</td>
+      <td><span class="risk-pill risk-extreme">Extreme</span></td>
+      <td>Timed entry</td><td>No</td><td>66.7%</td>
+    </tr>
+    <tr>
+      <td>Gatlinburg</td><td>1,510:1</td>
+      <td><span class="risk-pill risk-veryhigh">Very High</span></td>
+      <td>Parking tag</td><td>No</td><td>107.7%</td>
+    </tr>
+    <tr>
+      <td>Asheville</td><td>21:1</td>
+      <td><span class="risk-pill risk-lower">Lower</span></td>
+      <td>No</td><td>Yes</td><td>7.3%</td>
+    </tr>
+    <tr>
+      <td>Park City</td><td>200:1</td>
+      <td><span class="risk-pill risk-lower">Lower</span></td>
+      <td>No</td><td>Yes</td><td>32.3%</td>
+    </tr>
+    <tr>
+      <td>Austin</td><td>12:1</td>
+      <td><span class="risk-pill risk-lower">Lower</span></td>
+      <td>No</td><td>Yes</td><td>2.9%</td>
+    </tr>
+    <tr>
+      <td>Jackson Hole</td><td>191:1</td>
+      <td><span class="risk-pill risk-lower">Lower</span></td>
+      <td>SDMP</td><td>Yes</td><td>28.0%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Gatlinburg has a 107.7% STR penetration rate. Its entire housing stock has been converted to tourist accommodation. There is no buffer between the destination's permanent character and its peak-season reality.</p>
+
+<p>Asheville and Austin both have protest flags and no formal entry controls. They are growing at over 5.5% annually. The gap between those two cities and a formal management response is narrowing every season.</p>
+
+<h2>Expert Comment</h2>
+<div class="expert-block">
+  <blockquote>
+    <p>"Across the US, the worst-hit destinations aren't major cities. They're small towns next to national parks. A town of 1,300 near Yellowstone sees 1,944 tourists for every resident in peak summer. Gatlinburg has more Airbnb listings than homes. These communities aren't struggling with tourism. They're being replaced by it."</p>
+  </blockquote>
+  <span class="expert-attribution">Data Analyst, Canada Sports Betting</span>
+</div>
+
+<h2>The Ratio Wins Every Time</h2>
+
+<p>Yellowstone's gateway town and Gatlinburg share the top two spots for the same reason. National park adjacency creates a visitor funnel with a fixed entry point and a community that cannot grow its way out of the ratio. 1,944:1 and 1,510:1 are not outliers. They are the logical result of building a small town next to America's most visited landscapes.</p>
+
+<p>For any traveller planning a US summer trip, the top 10 offers a clear signal: every destination above rank six has a peak ratio above 100:1. For every local you see, there are at least 100 other visitors around them.</p>
+
+<p>The management gap between Yellowstone's timed entry and Asheville's absent framework is the emerging story in US overtourism. Destinations with controls are stabilising. Those without them are accelerating.</p>
+
+<p class="final-line"><em>In the United States this summer, the most overwhelmed places are overwhelmed by design, not accident.</em></p>
+<h2 id="tt-method">Methodology</h2>
+<div class="methodology-block">
+  <p><strong>What we measured:</strong> The probability that a US destination will be noticeably overcrowded for the average visitor during peak summer 2026 (June, July, August).</p>
+  <p><strong>Four pillars:</strong> Peak tourist-to-resident ratio (40%) · YoY arrival growth (25%) · Forward search demand (20%) · Short-term rental density (15%). Each pillar z-scored, capped at ±3, weighted, and normalised to a 0–100 index.</p>
+  <p><strong>Summer concentration factors:</strong> Beach/coastal 55% · NPS gateways 52% · Mountain 48% · Heritage 38% · Theme parks 38% · Urban 28% · Hawaiian islands 45% · Desert resorts 20%. Based on NPS monthly data, Visit Orlando quarterly, and Myrtle Beach/OBX seasonal splits.</p>
+  <p><strong>Risk tiers:</strong> Score 90–100 = Extreme Risk (75%+) · 80–89 = Very High Risk (60%) · 65–79 = High Risk (50%) · 50–64 = Moderate Risk (33%) · 30–49 = Lower Risk (17%) · Below 30 = Low Risk (under 10%).</p>
+  <p><strong>Limitations:</strong> Peak-season figures confirmed from primary data for Yellowstone, Gatlinburg, Myrtle Beach, Orlando, and Bar Harbor only. All others are derived estimates. STR penetration above 100% reflects multi-platform listing saturation. Data extracted June 2026.</p>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources-list">
+  <li>Full dataset: <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTvxnMAigXDfZYA6TJpUKA3DqOOI8N6b86f0vBTKENYy0flaZ9VXKnfuq77Gs5QCA/pubhtml" target="_blank" rel="noopener">Canada Sports Betting Tourist Takeover Index 2026</a></li>
+  <li>CVB and DMO annual reports 2024</li>
+  <li>NTTO Cities Monitor · US Census Bureau 2024 Population Estimates</li>
+  <li>National Park Service annual visitation statistics 2024</li>
+  <li>Inside Airbnb quarterly city data</li>
+  <li>Google Trends: forward search demand, summer 2026 vs 2025</li>
+</ul>
+
+</div><!-- end us -->
+
+</div><!-- tt-body -->
+
+<script>
+function showCountry(c) {
+  document.getElementById('tt-selector').style.display = 'none';
+  var intro = document.getElementById('tt-intro');
+  if (intro) intro.style.display = 'none';
+  ['canada','us'].forEach(function(x) {
+    document.getElementById('section-'+x).classList.remove('active');
+  });
+  document.getElementById('section-'+c).classList.add('active');
+  ['nav-findings','nav-top10','nav-callout','nav-method'].forEach(function(id) {
+    document.getElementById(id).style.display = '';
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function showSelector() {
+  var intro = document.getElementById('tt-intro');
+  if (intro) intro.style.display = '';
+  ['canada','us'].forEach(function(x) {
+    document.getElementById('section-'+x).classList.remove('active');
+  });
+  document.getElementById('tt-selector').style.display = '';
+  ['nav-findings','nav-top10','nav-callout','nav-method'].forEach(function(id) {
+    document.getElementById(id).style.display = 'none';
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+var navSections = ['tt-findings','tt-top10','tt-callout','tt-method'];
+var navMap = {'tt-findings':'nav-findings','tt-top10':'nav-top10','tt-callout':'nav-callout','tt-method':'nav-method'};
+function updateNav() {
+  var y = window.scrollY + 80;
+  var current = null;
+  navSections.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top + window.scrollY <= y) current = id;
+  });
+  document.querySelectorAll('.tt-nav a:not(.nav-brand)').forEach(function(a) {
+    a.classList.remove('tt-active');
+  });
+  if (current) {
+    var el = document.getElementById(navMap[current]);
+    if (el) el.classList.add('tt-active');
+  }
+}
+window.addEventListener('scroll', updateNav, {passive:true});
+updateNav();
+</script>
+
+</div>
